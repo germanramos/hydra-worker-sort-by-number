@@ -1,25 +1,38 @@
 package main
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"os"
 	"sort"
+	"strconv"
 
-	worker "github.com/innotech/hydra-worker-pong/vendors/github.com/innotech/hydra-worker-lib"
+	worker "github.com/innotech/hydra-worker-sort-by-number/vendors/github.com/innotech/hydra-worker-lib"
 )
 
 const (
-	DECR int = 0
-	INCR int = 1
+	decr string = "0"
+	incr string = "1"
 )
 
-type lessByAttr func(i, j int) bool
+var order, sortAttr string
 
-type ByAttr []map[string]interface{}
+type Instances []map[string]interface{}
 
-func (a ByAttr) Len() int           { return len(a) }
-func (a ByAttr) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByAttr) Less(i, j int) bool { return lessByAttr(i, j) }
+func (a Instances) Len() int      { return len(a) }
+func (a Instances) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (s Instances) Less(i, j int) bool {
+	var less bool
+	if order == decr {
+		a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+		a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+		less = a1 > a2
+	} else {
+		a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+		a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+		less = a1 < a2
+	}
+	return less
+}
 
 func main() {
 	if len(os.Args) < 3 {
@@ -30,24 +43,24 @@ func main() {
 	verbose := len(os.Args) >= 4 && os.Args[3] == "-v"
 
 	// New Worker connected to Hydra Load Balancer
-	mapAndSortWorker := worker.NewWorker(serverAddr, serviceName, verbose)
-	fn := func(instances []map[string]interface{}, args map[string]string) []interface{} {
-		order := args["order"]
-		attr := args["sortAttr"]
-
-		if order == DECR {
-			lessByAttr = func(i, j int) bool {
-				return a[i][attr].(float64) > a[j][attr].(float64)
-			}
-		} else {
-			lessByAttr = func(i, j int) bool {
-				return a[i][attr].(float64) < a[j][attr].(float64)
-			}
+	sortByNumberWorker := worker.NewWorker(serverAddr, serviceName, verbose)
+	fn := func(instances []interface{}, args map[string]interface{}) []interface{} {
+		var finalInstances []map[string]interface{}
+		finalInstances = make([]map[string]interface{}, 0)
+		for _, instance := range instances {
+			finalInstances = append(finalInstances, instance.(map[string]interface{}))
 		}
 
-		sort.Sort(ByAttr(instances))
+		sortAttr = args["sortAttr"].(string)
+		order = args["order"].(string)
+		sort.Sort(Instances(finalInstances))
 
-		return instances
+		var finalInstances2 []interface{}
+		finalInstances2 = make([]interface{}, 0)
+		for _, instance := range finalInstances {
+			finalInstances2 = append(finalInstances2, instance)
+		}
+		return finalInstances2
 	}
-	mapAndSortWorker.Run(fn)
+	sortByNumberWorker.Run(fn)
 }
