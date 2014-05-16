@@ -16,10 +16,10 @@ Sort instances by number.
 %build
 %install
 install -m 0755 -d $RPM_BUILD_ROOT/usr/local/hydra
-install -m 0755 /hydra-worker-sort-by-number $RPM_BUILD_ROOT/usr/local/hydra/hydra-worker-sort-by-number
+install -m 0755 hydra-worker-sort-by-number $RPM_BUILD_ROOT/usr/local/hydra/hydra-worker-sort-by-number
 
 install -m 0755 -d $RPM_BUILD_ROOT/etc/init.d
-install -m 0755 /hydra-worker-sort-by-number-init.d.sh $RPM_BUILD_ROOT/etc/init.d/hydra-worker-sort-by-number
+install -m 0755 hydra-worker-sort-by-number-init.d.sh $RPM_BUILD_ROOT/etc/init.d/hydra-worker-sort-by-number
 %clean
 rm -rf $RPM_BUILD_ROOT
 %post
