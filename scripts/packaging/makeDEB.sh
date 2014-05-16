@@ -12,7 +12,7 @@ cp hydra-worker-sort-by-number-init.d.sh ~/debbuild/etc/init.d/hydra-worker-sort
 mkdir -p ~/debbuild/usr/local/hydra
 cp ../../bin/hydra-worker-sort-by-number  ~/debbuild/usr/local/hydra
 
-chmod -R 644 ~/debbuild/usr/local/hydra/* ~/debbuild/etc/hydra/*
+chmod -R 644 ~/debbuild/usr/local/hydra/*
 chmod 755 ~/debbuild/etc/init.d/hydra-worker-sort-by-number
 chmod 755 ~/debbuild/usr/local/hydra/hydra-worker-sort-by-number
 
