@@ -23,13 +23,25 @@ func (a Instances) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (s Instances) Less(i, j int) bool {
 	var less bool
 	if order == decr {
-		a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
-		a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
-		less = a1 > a2
+		if _, ok := s[i]["Info"].(map[string]interface{})[sortAttr]; !ok {
+			less = true
+		} else if _, ok := s[j]["Info"].(map[string]interface{})[sortAttr]; !ok {
+			less = false
+		} else {
+			a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+			a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+			less = a1 > a2
+		}
 	} else {
-		a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
-		a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
-		less = a1 < a2
+		if _, ok := s[i]["Info"].(map[string]interface{})[sortAttr]; !ok {
+			less = true
+		} else if _, ok := s[j]["Info"].(map[string]interface{})[sortAttr]; !ok {
+			less = false
+		} else {
+			a1, _ := strconv.ParseFloat(s[i]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+			a2, _ := strconv.ParseFloat(s[j]["Info"].(map[string]interface{})[sortAttr].(string), 64)
+			less = a1 < a2
+		}
 	}
 	return less
 }
