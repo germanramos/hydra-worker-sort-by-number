@@ -34,7 +34,8 @@ In apps.json:
 
 ## Configuration example
 ```
-"SortByNumber": {
+{
+	"worker: "SortByNumber",
 	"sortAttr": "cost",
 	"order": 0
 }
