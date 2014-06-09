@@ -36,7 +36,7 @@ In apps.json:
 ```
 "SortByNumber": {
 	"sortAttr": "cost",
-	"order": 1
+	"order": 0
 }
 ```			
 This will ascending order the list of instances by the attribute "cost". 
