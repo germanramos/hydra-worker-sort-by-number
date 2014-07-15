@@ -19,7 +19,7 @@ fi
 APP_NAME=hydra-worker-sort-by-number
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/local/hydra/hydra-worker-sort-by-number
-DAEMON_ARGS="tcp://127.0.0.1:7801 SortByNumber"
+DAEMON_ARGS="-config /etc/hydra/hydra-worker-sort-by-number.conf"
 RUNDIR=/usr/local/hydra
 PID_DIR=/var/run
 PID_NAME=$APP_NAME.pid

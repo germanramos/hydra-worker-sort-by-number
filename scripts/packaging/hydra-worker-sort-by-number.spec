@@ -20,9 +20,13 @@ install -m 0755 hydra-worker-sort-by-number $RPM_BUILD_ROOT/usr/local/hydra/hydr
 
 install -m 0755 -d $RPM_BUILD_ROOT/etc/init.d
 install -m 0755 hydra-worker-sort-by-number-init.d.sh $RPM_BUILD_ROOT/etc/init.d/hydra-worker-sort-by-number
+
+install -m 0755 -d $RPM_BUILD_ROOT/etc/hydra
+install -m 0644 hydra.conf $RPM_BUILD_ROOT/etc/hydra/hydra-worker-sort-by-number.conf
 %clean
 rm -rf $RPM_BUILD_ROOT
 %post
+echo   You should edit config file /etc/hydra/hydra-worker-sort-by-number.conf
 echo   When finished, you may want to run \"update-rc.d hydra-worker-sort-by-number defaults\"
 %files
 /usr/local/hydra/hydra-worker-sort-by-number

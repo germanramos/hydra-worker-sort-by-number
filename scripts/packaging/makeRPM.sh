@@ -7,6 +7,7 @@ rm -rf ~/rpmbuild
 rpmdev-setuptree
 
 mkdir ~/rpmbuild/SOURCES/hydra-worker-sort-by-number-1
+cp ./fixtures/hydra-worker-sort-by-number.conf  ~/rpmbuild/SOURCES/hydra-worker-sort-by-number-1
 cp hydra-worker-sort-by-number-init.d.sh ~/rpmbuild/SOURCES/hydra-worker-sort-by-number-1
 cp ../../bin/hydra-worker-sort-by-number ~/rpmbuild/SOURCES/hydra-worker-sort-by-number-1
 

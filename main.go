@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "encoding/json"
 	"os"
 	"sort"
 	"strconv"
@@ -47,15 +46,8 @@ func (s Instances) Less(i, j int) bool {
 }
 
 func main() {
-	if len(os.Args) < 3 {
-		panic("Invalid number of arguments, you need to add at least the arguments for the server address and the service name")
-	}
-	serverAddr := os.Args[1]  // e.g. "tcp://localhost:5555"
-	serviceName := os.Args[2] // e.g. sort-by-number
-	verbose := len(os.Args) >= 4 && os.Args[3] == "-v"
-
 	// New Worker connected to Hydra Load Balancer
-	sortByNumberWorker := worker.NewWorker(serverAddr, serviceName, verbose)
+	sortByNumberWorker := worker.NewWorker(os.Args)
 	fn := func(instances []interface{}, args map[string]interface{}) []interface{} {
 		var finalInstances []map[string]interface{}
 		finalInstances = make([]map[string]interface{}, 0)
