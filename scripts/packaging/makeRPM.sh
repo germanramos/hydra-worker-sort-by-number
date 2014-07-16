@@ -14,9 +14,9 @@ cp ../../bin/hydra-worker-sort-by-number ~/rpmbuild/SOURCES/hydra-worker-sort-by
 cp hydra-worker-sort-by-number.spec ~/rpmbuild/SPECS
 
 pushd ~/rpmbuild/SOURCES/
-tar czf hydra-worker-sort-by-number-1.0.tar.gz hydra-worker-sort-by-number-1/
+tar czf hydra-worker-sort-by-number-1.1.tar.gz hydra-worker-sort-by-number-1/
 cd ~/rpmbuild 
 rpmbuild -ba SPECS/hydra-worker-sort-by-number.spec
 
 popd
-cp ~/rpmbuild/RPMS/x86_64/hydra-worker-sort-by-number-1-0.x86_64.rpm .
+cp ~/rpmbuild/RPMS/x86_64/hydra-worker-sort-by-number-1-1.x86_64.rpm .

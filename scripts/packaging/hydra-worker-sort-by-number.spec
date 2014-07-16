@@ -1,8 +1,8 @@
 Name: hydra-worker-sort-by-number
 Version: 1
-Release: 0
+Release: 1
 Summary: hydra-worker-sort-by-number
-Source0: hydra-worker-sort-by-number-1.0.tar.gz
+Source0: hydra-worker-sort-by-number-1.1.tar.gz
 License: MIT
 Group: custom
 URL: https://github.com/innotech/hydra-worker-sort-by-number
