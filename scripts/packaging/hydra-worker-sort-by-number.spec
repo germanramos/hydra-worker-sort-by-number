@@ -31,3 +31,6 @@ echo   When finished, you may want to run \"update-rc.d hydra-worker-sort-by-num
 %files
 /usr/local/hydra/hydra-worker-sort-by-number
 /etc/init.d/hydra-worker-sort-by-number
+%dir /etc/hydra
+/etc/hydra/hydra-worker-sort-by-number.conf
+/etc/init.d/hydra-worker-sort-by-number
