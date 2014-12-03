@@ -47,8 +47,8 @@ func (s Instances) Less(i, j int) bool {
 
 func main() {
 	// New Worker connected to Hydra Load Balancer
-	sortByNumberWorker := worker.NewWorker(os.Args)
-	fn := func(instances []interface{}, args map[string]interface{}) []interface{} {
+	sortByNumberWorker, _ := worker.NewWorker(os.Args)
+	fn := func(instances []interface{}, clientParams map[string][]string, args map[string]interface{}) []interface{} {
 		var finalInstances []map[string]interface{}
 		finalInstances = make([]map[string]interface{}, 0)
 		for _, instance := range instances {
