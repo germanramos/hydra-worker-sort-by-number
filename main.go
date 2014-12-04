@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	decr string = "0"
-	incr string = "1"
+	desc string = "DESC"
+	incr string = "INCR"
 )
 
 var order, sortAttr string
@@ -21,7 +21,7 @@ func (a Instances) Len() int      { return len(a) }
 func (a Instances) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (s Instances) Less(i, j int) bool {
 	var less bool
-	if order == decr {
+	if order == desc {
 		if _, ok := s[i]["Info"].(map[string]interface{})[sortAttr]; !ok {
 			less = true
 		} else if _, ok := s[j]["Info"].(map[string]interface{})[sortAttr]; !ok {
