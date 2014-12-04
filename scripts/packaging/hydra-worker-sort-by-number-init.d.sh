@@ -2,13 +2,16 @@
 
 # Hydra Worker Sort by Number - Startup script for Hydra Worker Sort by Number
 
-# chkconfig: 35 99 15
+# chkconfig: 03456 99 15
 # description: Service for application discovery, management and balancing services
 # processname: hydra-worker-sort-by-number
+#
+### BEGIN INIT INFO
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # config: 
 # pidfile: /var/run/hydra-worker-sort-by-number.pid
+### END INIT INFO
 
 DISTRO_INFO=$(cat /proc/version)
 
@@ -25,6 +28,12 @@ PID_DIR=/var/run
 PID_NAME=$APP_NAME.pid
 PID_FILE=$PID_DIR/$PID_NAME
 LOCK_FILE=/var/lock/subsys/${APP_NAME}
+
+rh_status() {
+    status $PID_DIR/$APP_NAME $DAEMON
+    RETVAL=$?
+    return $RETVAL
+}
 
 case "$1" in
 start)
@@ -71,6 +80,9 @@ stop)
 restart)
   ${0} stop
   ${0} start
+  ;;
+status)
+    rh_status
   ;;
 *)
   echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
