@@ -28,6 +28,8 @@ PID_DIR=/var/run
 PID_NAME=$APP_NAME.pid
 PID_FILE=$PID_DIR/$PID_NAME
 LOCK_FILE=/var/lock/subsys/${APP_NAME}
+USER=root
+GROUP=root
 
 rh_status() {
     status $PID_DIR/$APP_NAME $DAEMON
@@ -42,7 +44,7 @@ start)
     echo Already running with PID `cat $PID_FILE`
   else
     if [[ $(echo $DISTRO_INFO | grep 'Debian\|Ubuntu') != "" ]]; then
-      if start-stop-daemon --start --pidfile $PID_FILE --chdir $RUNDIR --background --make-pidfile --exec $DAEMON -- $DAEMON_ARGS
+      if start-stop-daemon --start --pidfile $PID_FILE --chdir $RUNDIR --background --make-pidfile --exec $DAEMON -- $DAEMON_ARGS &> /var/log/${APP_NAME}/${APP_NAME}.log
       then
         echo ok
       else
@@ -54,7 +56,7 @@ start)
       fi
       sudo chown -R $USER:$GROUP /var/log/${APP_NAME}
       cd $RUNDIR
-      $DAEMON $DAEMON_ARGS &>/dev/null &
+      $DAEMON $DAEMON_ARGS &> /var/log/${APP_NAME}/${APP_NAME}.log &
       RETVAL=$?
       if [ $RETVAL -eq 0 ]
       then
@@ -85,7 +87,7 @@ status)
     rh_status
   ;;
 *)
-  echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
+  echo "Usage: /etc/init.d/$NAME {start|stop|restart|status}"
   exit 1
   ;;
 esac
